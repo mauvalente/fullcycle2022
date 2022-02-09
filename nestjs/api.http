@@ -1,0 +1,25 @@
+GET http://localhost:3000/tweets
+
+
+
+### 
+POST http://localhost:3000/tweets
+Content-Type: application/json
+
+{
+    "Text": "A Imersão começou",
+    "User": {
+        "Name": "Luiz Carlos"
+    }
+}
+
+### 
+POST http://localhost:3000/tweets
+Content-Type: application/json
+
+{
+    "Text": "Um novo tweet chegou 10",
+    "User": {
+        "Name": "Luiz Carlos"
+    }
+}
