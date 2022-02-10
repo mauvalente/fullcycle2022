@@ -1,26 +1,27 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateMailListDto } from './dto/create-mail-list.dto';
-import { UpdateMailListDto } from './dto/update-mail-list.dto';
+import { MailList, MailListDocument } from './schemas/mail-list.schema';
 
 @Injectable()
 export class MailListService {
-  create(createMailListDto: CreateMailListDto) {
-    return 'This action adds a new mailList';
+  constructor(
+    @InjectModel(MailList.name)
+    private mailListModel: Model<MailListDocument>,
+  ) {}
+
+  async create({ emails }: CreateMailListDto) {
+    const mail = await this.findOne();
+    if (!mail) {
+      return this.mailListModel.create({ emails });
+    }
+    await mail.update({ emails }).exec();
+    return this.findOne();
   }
 
-  findAll() {
-    return `This action returns all mailList`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} mailList`;
-  }
-
-  update(id: number, updateMailListDto: UpdateMailListDto) {
-    return `This action updates a #${id} mailList`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} mailList`;
+  async findOne() {
+    const mails = await this.mailListModel.find().exec();
+    return mails.length ? mails[0] : null;
   }
 }

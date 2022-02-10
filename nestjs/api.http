@@ -23,3 +23,21 @@ Content-Type: application/json
         "Name": "Luiz Carlos"
     }
 }
+
+
+
+### 
+GET http://localhost:3000/mail-list
+
+
+###
+POST http://localhost:3000/mail-list
+Content-Type: application/json
+
+{
+    "emails": [
+        "user@teste.com",
+        "user2@teste.com",
+        "user3@teste.com"
+    ]
+}
