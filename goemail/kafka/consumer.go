@@ -10,11 +10,11 @@ type Consumer struct {
 func NewConsumer(configMap *ckafka.ConfigMap, topics []string) *Consumer {
 	return &Consumer{
 		Topics: topics,
-		ConfigMap: configMap
+		ConfigMap: configMap,
 	}
 }
 
-func (c *Consumer) Consumer(msgChan chan *ckafka.Message) error {
+func (c *Consumer) Consume(msgChan chan *ckafka.Message) error {
 	consumer, err := ckafka.NewConsumer(c.ConfigMap)
 	if err != nil {
 		panic(err)
@@ -24,7 +24,7 @@ func (c *Consumer) Consumer(msgChan chan *ckafka.Message) error {
 		panic(err)
 	}
 	for {
-		mgs, err := consumer.ReadMessage(-1)
+		msg, err := consumer.ReadMessage(-1)
 		if err == nil {
 			msgChan <- msg
 		}

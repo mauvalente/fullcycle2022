@@ -1,6 +1,9 @@
 package email
 
-import gomail "gopkg.in/mail.v2" 
+import (
+	gomail "gopkg.in/mail.v2" 
+	"fmt"
+)
 
 type Email struct {
 	Emails []string `json:"emails"`
